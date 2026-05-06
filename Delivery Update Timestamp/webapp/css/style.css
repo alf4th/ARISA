@@ -1,0 +1,21 @@
+/* Enter your custom styles here */
+/* Remove FLP shell side padding so app content spans full width */
+/*.sapUShellApplicationContainer,
+.sapUShellContentWrapper,
+.sapUShellContent,
+.sapUShellCanvas,
+.sapUShellAppPage {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+} */
+
+
+/* Override SAP FLP Limited Width */
+.sapUiMedia-Std-Desktop 
+.sapUShellApplicationContainer.sapUShellApplicationContainerLimitedWidth,
+.sapUShellApplicationContainer.sapUShellApplicationContainerLimitedWidth {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}

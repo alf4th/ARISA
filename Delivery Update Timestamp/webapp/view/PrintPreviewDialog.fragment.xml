@@ -1,0 +1,30 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Dialog
+        id="previewDialog"
+        title="Print Preview - Delivery Label"
+        contentWidth="580px"
+        contentHeight="480px"
+        resizable="true"
+        draggable="true"
+    >
+        <content>
+            <ScrollContainer height="100%" vertical="true" horizontal="false">
+                <VBox class="sapUiSmallMargin">
+                    <core:HTML id="labelPreviewHtml" content="&lt;div style='padding:8px'&gt;Loading preview...&lt;/div&gt;" />
+                </VBox>
+            </ScrollContainer>
+        </content>
+        <buttons>
+            <Button
+                text="Print / Save PDF"
+                type="Emphasized"
+                icon="sap-icon://print"
+                press=".onPrintPdf"
+            />
+            <Button text="Close" press=".onPreviewClose" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>
