@@ -1,0 +1,23 @@
+{
+  "generationParameters": {
+    "generationDate": "Wed Apr 08 2026 11:27:12 GMT+0700 (Indochina Time)",
+    "generatorPlatform": "Visual Studio Code",
+    "serviceType": "SAP System (ABAP Cloud)",
+    "metadataFilename": "",
+    "serviceUrl": "https://my424738-api.s4hana.cloud.sap/sap/opu/odata4/sap/zsb_inb_deliv_uptime_labelqr_4/srvd/sap/zsd_inb_deliv_uptime_labelqr/0001/",
+    "appName": "delivuptimelabelqr",
+    "appTitle": "Update Timestamp & Generate Label QR",
+    "appDescription": "Update Timestamp & Generate Label QR",
+    "appNamespace": "delivuptime",
+    "ui5Theme": "sap_horizon",
+    "ui5Version": "1.142.7",
+    "enableEslint": true,
+    "enableTypeScript": false,
+    "showMockDataInfo": true,
+    "generatorVersion": "1.22.0",
+    "template": "Basic V4",
+    "generatorName": "SAP Fiori Application Generator",
+    "entityRelatedConfig": [],
+    "launchText": "To launch the generated application, run the following from the generated application root folder:\n\n```\n    npm start\n```"
+  }
+}

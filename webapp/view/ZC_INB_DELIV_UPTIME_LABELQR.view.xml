@@ -1,0 +1,399 @@
+<mvc:View
+    controllerName="zdelivuptime.delivuptimelabelqr.controller.ZC_INB_DELIV_UPTIME_LABELQR"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    displayBlock="true"
+>
+    <Page
+        id="page"
+        showNavButton="false"
+        busy="{viewModel>/isBusy}"
+    >
+        <content>
+            <VBox id="mainVBox" width="100%" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
+
+                <!-- ============================================================ -->
+                <!-- HEADER: Container Number Input + Scan Button                 -->
+                <!-- ============================================================ -->
+                <HBox id="headerHBox" alignItems="Center" justifyContent="Center" class="sapUiSmallMarginBottom">
+                    <Label id="lblExtDeliveryId" text="{i18n>labelExtDeliveryId}" class="sapUiSmallMarginEnd" width="10rem" design="Bold" />
+                    <Input
+                        id="extDeliveryIdInput"
+                        value="{viewModel>/extDeliveryId}"
+                        placeholder="{i18n>placeholderExtDeliveryId}"
+                        width="20rem"
+                        liveChange=".onExtDeliveryIdChange"
+                        submit=".onExtDeliveryIdSubmit"
+                    />
+                    <Button
+                        id="scanButton"
+                        text="{i18n>btnScan}"
+                        icon="sap-icon://bar-code"
+                        type="Emphasized"
+                        press=".onScanPress"
+                        class="sapUiSmallMarginBegin"
+                    />
+                </HBox>
+
+                <!-- ============================================================ -->
+                <!-- DELIVERY INFO PANEL: visible after successful fetch          -->
+                <!-- ============================================================ -->
+                <VBox id="deliveryInfoPanel" visible="{viewModel>/deliveryFound}">
+
+                    <!-- Delivery Info Fact Sheet (always visible) -->
+                    <VBox id="vboxDeliveryFactSheet" class="sapUiMediumMarginBeginEnd sapUiSmallMarginTopBottom">
+                        <Text id="txtVendorNameHeader" text="{viewModel>/vendorName}" /> <!--class="sapUiSmallMarginBottom" /> -->
+                        <Text id="txtLineInboundDelivery" text="{= ${i18n>labelInboundDelivery} + ': ' + (${viewModel>/inboundDelivery} || '')}" />
+                        <Text id="txtLineExtDelivery" text="{= ${i18n>labelExtDeliveryId2} + ': ' + (${viewModel>/extDeliveryId} || '')}" />
+                    </VBox>
+
+                    <!-- Collapse / Expand toggle (collapses the form sections below) -->
+                    <HBox id="hboxCollapseToggle" justifyContent="Center" alignItems="Center" class="sapUiTinyMarginTopBottom">
+                        <Button
+                            id="btnToggleHeader"
+                            icon="{= ${viewModel>/headerExpanded} ? 'sap-icon://slim-arrow-up' : 'sap-icon://slim-arrow-down'}"
+                            type="Transparent"
+                            press=".onToggleHeader"
+                        />
+                    </HBox>
+
+                    <!-- ============================================================ -->
+                    <!-- TAB BAR: acts as scroll shortcuts only, no content per tab   -->
+                    <!-- ============================================================ -->
+                    <IconTabBar
+                        id="mainTabBar"
+                        stretchContentHeight="false"
+                        expandable="false"
+                        select=".onTabSelect"
+                        class="sapUiSmallMarginTop"
+                    >
+                        <items>
+                            <IconTabFilter id="tabGeneralInfo" text="{i18n>titleGeneralInfo}" key="general" />
+                            <IconTabFilter id="tabDetailInfo" text="{i18n>titleDetailInfo}" key="detail" />
+                        </items>
+                    </IconTabBar>                    
+
+                    <!-- ================================================ -->
+                    <!-- SECTION 1: General Information (collapsible)      -->
+                    <!-- ================================================ -->
+                    <VBox id="vboxGeneralInfoSection"  class="sapUiMediumMarginBeginEnd sapUiSmallMarginTop" visible="{viewModel>/headerExpanded}">
+                        <Title id="titleGeneralInfo" text="{i18n>titleGeneralInfo}" level="H4" class="sapUiSmallMarginBottom" />
+                        <f:SimpleForm
+                            id="generalInfoForm"
+                            editable="true"
+                            layout="ResponsiveGridLayout"
+                            labelSpanXL="4"
+                            labelSpanL="4"
+                            labelSpanM="4"
+                            labelSpanS="12"
+                            columnsXL="2"
+                            columnsL="2"
+                            columnsM="1"
+                        >
+                            <f:content>
+                                <Label id="lblOperatorName" text="{i18n>labelOperatorName}" required="true" />
+                                <Input
+                                    id="operatorNameInput"
+                                    value="{viewModel>/operatorName}"
+                                    placeholder="{i18n>placeholderOperatorName}"
+                                    editable="{viewModel>/customFieldsEnabled}"
+                                    width="10rem"
+                                />
+                                <Label id="lblShift" text="{i18n>labelShift}" required="true" />
+                                <Select
+                                    id="shiftSelect"
+                                    selectedKey="{viewModel>/shift}"
+                                    enabled="{viewModel>/customFieldsEnabled}"
+                                    width="10rem"
+                                >
+                                    <items>
+                                        <core:Item id="shiftItemEmpty" key="" text="" />
+                                        <core:Item id="shiftItem1" key="1" text="1" />
+                                        <core:Item id="shiftItem2" key="2" text="2" />
+                                        <core:Item id="shiftItem3" key="3" text="3" />
+                                    </items>
+                                </Select>
+                            </f:content>
+                        </f:SimpleForm>
+                    </VBox>
+
+                    <!-- ================================================ -->
+                    <!-- SECTION 2: Detail Information (collapsible)       -->
+                    <!-- ================================================ -->
+                    <VBox id="vboxDetailInfoSection" class="sapUiMediumMarginBeginEnd sapUiSmallMarginTop" visible="{viewModel>/headerExpanded}">
+                        <Title id="titleDetailInfo" text="{i18n>titleDetailInfo}" level="H4" class="sapUiSmallMarginBottom" />
+                        <f:SimpleForm
+                            id="detailInfoForm"
+                            editable="true"
+                            layout="ResponsiveGridLayout"
+                            labelSpanXL="4"
+                            labelSpanL="4"
+                            labelSpanM="4"
+                            labelSpanS="12"
+                            columnsXL="2"
+                            columnsL="2"
+                            columnsM="1"
+                        >
+                            <f:content>
+                                <!-- Unload Queue (read-only, auto-filled by backend) -->
+                                <Label id="lblUnloadQueue" text="{i18n>labelUnloadQueue}" textAlign="Begin"/>
+                                <Input
+                                    id="unloadQueueInput"
+                                    value="{viewModel>/unloadQueue}"
+                                    editable="false"
+                                    width="10rem"
+                                />
+
+                                <!-- License Plate -->
+                                <Label id="lblNoPolisiTruck" text="{i18n>labelNoPolisiTruck}" textAlign="Begin"/>
+                                <Input
+                                    id="noPolisiTruckInput"
+                                    value="{viewModel>/noPolisiTruck}"
+                                    placeholder="{i18n>placeholderNoPolisiTruck}"
+                                    editable="{viewModel>/customFieldsEnabled}"
+                                    maxLength="20"
+                                    width="10rem"
+                                    liveChange=".onNoPolisiTruckChange"
+                                />
+
+                                <!-- Driver Name -->
+                                <Label id="lblNamaDriver" text="{i18n>labelNamaDriver}" textAlign="Begin"/>
+                                <Input
+                                    id="namaDriverInput"
+                                    value="{viewModel>/namaDriver}"
+                                    placeholder="{i18n>placeholderNamaDriver}"
+                                    editable="{viewModel>/customFieldsEnabled}"
+                                    maxLength="50"
+                                    width="10rem"
+                                />
+
+                                <!-- EMKL -->
+                                <Label id="lblEMKL" text="{i18n>labelEMKL}" textAlign="Begin"/>
+                                <HBox id="hboxEMKL" alignItems="Center">
+                                    <Input
+                                        id="emklInput"
+                                        value="{viewModel>/emkl}"
+                                        placeholder="{i18n>placeholderEMKL}"
+                                        editable="{viewModel>/customFieldsEnabled}"
+                                        maxLength="10"
+                                        width="10rem"
+                                        showValueHelp="{viewModel>/customFieldsEnabled}"
+                                        valueHelpRequest=".onEMKLValueHelp"
+                                        showSuggestion="true"
+                                        suggest=".onEMKLSuggest"
+                                        suggestionItemSelected=".onEMKLSuggestionSelected"
+                                    />
+                                    <Text
+                                        id="emklNameText"
+                                        text="{viewModel>/emklName}"
+                                        class="sapUiSmallMarginBegin"
+                                    />
+                                </HBox>
+
+                                <!-- Port Gate Out -->
+                                <Label id="lblGateOutPortDate" text="{i18n>labelGateOutPortDate}" textAlign="Begin"/>
+                                <DatePicker
+                                    id="gateOutPortDatePicker"
+                                    value="{viewModel>/gateOutPortDate}"
+                                    valueFormat="yyyy-MM-dd"
+                                    displayFormat="dd/MM/yyyy"
+                                    editable="{viewModel>/customFieldsEnabled}"
+                                    placeholder="dd/MM/yyyy"
+                                    width="10rem"
+                                />
+                                <Label id="lblGateOutPortTime" text="{i18n>labelGateOutPortTime}" textAlign="Begin"/>
+                                <HBox id="hboxGateOutPortTime" alignItems="Center">
+                                    <TimePicker
+                                        id="gateOutPortTimePicker"
+                                        value="{viewModel>/gateOutPortTime}"
+                                        valueFormat="HH:mm:ss"
+                                        displayFormat="HH:mm:ss"
+                                        editable="{viewModel>/customFieldsEnabled}"
+                                        placeholder="HH:mm:ss"
+                                        width="10rem"
+                                    />
+                                    <Button
+                                        id="btnTimestampGateOut"
+                                        text="Timestamp"
+                                        type="Default"
+                                        press=".onTimestampGateOutPress"
+                                        enabled="{viewModel>/customFieldsEnabled}"
+                                        class="sapUiSmallMarginBegin"
+                                    />
+                                </HBox>
+
+                                <!-- Check-In Arisa -->
+                                <Label id="lblDateCheckInArisa" text="{i18n>labelDateCheckInArisa}" textAlign="Begin"/>
+                                <DatePicker
+                                    id="dateCheckInArisaPicker"
+                                    value="{viewModel>/dateCheckInArisa}"
+                                    valueFormat="yyyy-MM-dd"
+                                    displayFormat="dd/MM/yyyy"
+                                    editable="{viewModel>/customFieldsEnabled}"
+                                    placeholder="dd/MM/yyyy"
+                                    width="10rem"
+                                />
+                                <Label id="lblCheckInTime" text="{i18n>labelCheckInTime}" textAlign="Begin"/>
+                                <HBox id="hboxCheckInTime" alignItems="Center">
+                                    <TimePicker
+                                        id="checkInTimePicker"
+                                        value="{viewModel>/checkInTime}"
+                                        valueFormat="HH:mm:ss"
+                                        displayFormat="HH:mm:ss"
+                                        editable="{viewModel>/customFieldsEnabled}"
+                                        placeholder="HH:mm:ss"
+                                        width="10rem"
+                                    />
+                                    <Button
+                                        id="btnTimestampCheckIn"
+                                        text="Timestamp"
+                                        type="Default"
+                                        press=".onTimestampCheckInPress"
+                                        enabled="{viewModel>/customFieldsEnabled}"
+                                        class="sapUiSmallMarginBegin"
+                                    />
+                                </HBox>
+
+                                <!-- Unload Start -->
+                                <Label id="lblDateUnload" text="{i18n>labelDateUnload}" textAlign="Begin"/>
+                                <DatePicker
+                                    id="dateUnloadPicker"
+                                    value="{viewModel>/dateUnload}"
+                                    valueFormat="yyyy-MM-dd"
+                                    displayFormat="dd/MM/yyyy"
+                                    editable="{viewModel>/customFieldsEnabled}"
+                                    placeholder="dd/MM/yyyy"
+                                    width="10rem"
+                                />
+                                <Label id="lblUnloadTime" text="{i18n>labelUnloadTime}" textAlign="Begin"/>
+                                <HBox id="hboxUnloadTime" alignItems="Center">
+                                    <TimePicker
+                                        id="unloadTimePicker"
+                                        value="{viewModel>/unloadTime}"
+                                        valueFormat="HH:mm:ss"
+                                        displayFormat="HH:mm:ss"
+                                        editable="{viewModel>/customFieldsEnabled}"
+                                        placeholder="HH:mm:ss"
+                                        width="10rem"
+                                    />
+                                    <Button
+                                        id="btnTimestampUnload"
+                                        text="Timestamp"
+                                        type="Default"
+                                        press=".onTimestampUnloadPress"
+                                        enabled="{viewModel>/customFieldsEnabled}"
+                                        class="sapUiSmallMarginBegin"
+                                    />
+                                </HBox>
+
+                                <!-- Unload Finished -->
+                                <Label id="lblUnloadFinishedDate" text="{i18n>labelUnloadFinishedDate}" textAlign="Begin"/>
+                                <DatePicker
+                                    id="unloadFinishedDatePicker"
+                                    value="{viewModel>/unloadFinishedDate}"
+                                    valueFormat="yyyy-MM-dd"
+                                    displayFormat="dd/MM/yyyy"
+                                    editable="{viewModel>/customFieldsEnabled}"
+                                    placeholder="dd/MM/yyyy"
+                                    width="10rem"
+                                />
+                                <Label id="lblUnloadFinishedTime" text="{i18n>labelUnloadFinishedTime}" textAlign="Begin"/>
+                                <HBox id="hboxUnloadFinishedTime" alignItems="Center">
+                                    <TimePicker
+                                        id="unloadFinishedTimePicker"
+                                        value="{viewModel>/unloadFinishedTime}"
+                                        valueFormat="HH:mm:ss"
+                                        displayFormat="HH:mm:ss"
+                                        editable="{viewModel>/customFieldsEnabled}"
+                                        placeholder="HH:mm:ss"
+                                        width="10rem"
+                                    />
+                                    <Button
+                                        id="btnTimestampUnloadFinished"
+                                        text="Timestamp"
+                                        type="Default"
+                                        press=".onTimestampUnloadFinishedPress"
+                                        enabled="{viewModel>/customFieldsEnabled}"
+                                        class="sapUiSmallMarginBegin"
+                                    />
+                                </HBox>
+
+                                <!-- Check-Out Arisa -->
+                                <Label id="lblCheckOutDate" text="{i18n>labelCheckOutDate}" textAlign="Begin"/>
+                                <DatePicker
+                                    id="checkOutDatePicker"
+                                    value="{viewModel>/checkOutDate}"
+                                    valueFormat="yyyy-MM-dd"
+                                    displayFormat="dd/MM/yyyy"
+                                    editable="{viewModel>/customFieldsEnabled}"
+                                    placeholder="dd/MM/yyyy"
+                                    width="10rem"
+                                />
+                                <Label id="lblCheckOutTime" text="{i18n>labelCheckOutTime}" textAlign="Begin"/>
+                                <HBox id="hboxCheckOutTime" alignItems="Center">
+                                    <TimePicker
+                                        id="checkOutTimePicker"
+                                        value="{viewModel>/checkOutTime}"
+                                        valueFormat="HH:mm:ss"
+                                        displayFormat="HH:mm:ss"
+                                        editable="{viewModel>/customFieldsEnabled}"
+                                        placeholder="HH:mm:ss"
+                                        width="10rem"
+                                    />
+                                    <Button
+                                        id="btnTimestampCheckOut"
+                                        text="Timestamp"
+                                        type="Default"
+                                        press=".onTimestampCheckOutPress"
+                                        enabled="{viewModel>/customFieldsEnabled}"
+                                        class="sapUiSmallMarginBegin"
+                                    />
+                                </HBox>
+                            </f:content>
+                        </f:SimpleForm>
+                    </VBox>
+
+                </VBox>
+
+            </VBox>
+        </content>
+
+        <!-- ============================================================ -->
+        <!-- FOOTER: Save, Cancel, Print Preview                          -->
+        <!-- ============================================================ -->
+        <footer>
+            <OverflowToolbar id="footerToolbar">
+                <ToolbarSpacer id="footerSpacer" />
+                <Button
+                    id="saveButton"
+                    text="{i18n>btnSave}"
+                    type="Emphasized"
+                    icon="sap-icon://save"
+                    press=".onSavePress"
+                    visible="{viewModel>/deliveryFound}"
+                    enabled="{viewModel>/customFieldsEnabled}"
+                />
+                <Button
+                    id="cancelButton"
+                    text="{i18n>btnCancel}"
+                    type="Default"
+                    icon="sap-icon://cancel"
+                    press=".onCancelPress"
+                    visible="{viewModel>/deliveryFound}"
+                />
+                <Button
+                    id="printPreviewButton"
+                    text="{i18n>btnPrintPreview}"
+                    type="Default"
+                    icon="sap-icon://print"
+                    press=".onPrintPreviewPress"
+                    visible="{viewModel>/deliveryFound}"
+                    enabled="{viewModel>/printPreviewEnabled}"
+                />
+            </OverflowToolbar>
+        </footer>
+
+    </Page>
+</mvc:View>
