@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "3.1"
+metadata:
+  name: uploadinbounddelivery.uploadinbounddelivery
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          url: https://my424750.s4hana.cloud.sap/
+          authenticationType: reentranceTicket # SAML support for vscode
+        app:
+          name: ZINBDLB_UPLOAD
+          description: Inbound Delivery Upload
+          package: ZCUST_APP_017
+          transport: env:TRANSPORT_REQUEST
+        exclude:
+          - /test/

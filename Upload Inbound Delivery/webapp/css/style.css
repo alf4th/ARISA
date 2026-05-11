@@ -1,0 +1,29 @@
+/* Override SAP Fiori Launchpad limited width */
+.sapUShellApplicationContainer.sapUShellApplicationContainerLimitedWidth {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Alternative: Force full width on all breakpoints */
+@media (min-width: 80rem) {
+    .sapUiMedia-Std-Desktop .sapUShellApplicationContainer.sapUShellApplicationContainerLimitedWidth {
+        width: 100% !important;
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+}
+
+/* Ensure your app container also uses full width */
+#container,
+#container-uiarea {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Optional: Remove any padding if needed */
+.sapUShellApplicationContainer {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}

@@ -1,0 +1,198 @@
+<mvc:View
+  controllerName="uploadinbounddelivery.uploadinbounddelivery.controller.CustomPage"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:table="sap.ui.table"
+  xmlns:unified="sap.ui.unified">
+
+    <Page id="_IDGenPage" title="Upload Inbound Delivery"> 
+        <content> 
+            <unified:FileUploader
+              id="fileUploader"
+              name="uploadExcel"
+              fileType="xlsx"
+              change=".onFileChange"
+              placeholder="Choose Excel File to Upload"
+              style="Emphasized"
+              width="500px" />
+
+            <Button id="_IDGenButton"
+              text="Preview Data"
+              press=".onPreview"
+              type="Emphasized"
+              class="sapUiSmallMarginTop sapUiSmallMarginEnd"/>
+            <Button
+              id="cancelButton"
+              text="Cancel"
+              press=".onCancel"
+              type="Default"
+              class="sapUiSmallMarginTop sapUiSmallMarginEnd"/>
+            <Button
+              id="saveButton"
+              text="Save"
+              press=".onSave"
+              type="Accept"
+              class="sapUiSmallMarginTop"/>
+
+            <table:Table
+              id="previewTable"
+              rows="{/excelData}"
+              selectionMode="None"
+              width="100%"
+              class="sapUiSmallMarginTop">
+
+              <table:columns>
+                <table:Column id="colNo" width="60px">
+                  <Label id="lblNo" text="No"/>
+                  <table:template>
+                    <Text id="txtNo" text="{No}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colStatus" width="80px">
+                  <Label id="lblStatus" text="Status"/>
+                  <table:template>
+                    <ObjectStatus
+                      id="txtStatus"
+                      text="{Status}"
+                      state="{StatusState}"
+                      active="{= ${StatusState} === 'Error' }"
+                      press=".onStatusPress"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colModel" width="150px">
+                  <Label id="lblModel" text="Model"/>
+                  <table:template>
+                    <Text id="txtModel" text="{Model}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colModelDesc" width="200px">
+                  <Label id="lblModelDesc" text="Model Description"/>
+                  <table:template>
+                    <Text id="txtModelDesc" text="{Model Description}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colSONumber" width="150px">
+                  <Label id="lblSONumber" text="SO Number / Line Item"/>
+                  <table:template>
+                    <Text id="txtSONumber" text="{SO Number / Line Item}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colContainerNumber" width="150px">
+                  <Label id="lblContainerNumber" text="Container Number"/>
+                  <table:template>
+                    <Text id="txtContainerNumber" text="{Container Number}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colProformaInvoice" width="150px">
+                  <Label id="lblProformaInvoice" text="Proforma Invoice"/>
+                  <table:template>
+                    <Text id="txtProformaInvoice" text="{Proforma Invoice}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colBillOfLading" width="180px">
+                  <Label id="lblBillOfLading" text="Bill of Lading"/>
+                  <table:template>
+                    <Text id="txtBillOfLading" text="{Bill of Lading}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colCipl" width="220px">
+                  <Label id="lblCipl" text="Commercial Invoice/Packing List"/>
+                  <table:template>
+                    <Text id="txtCipl" text="{Cipl}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colPONumber" width="180px">
+                  <Label id="lblPONumber" text="Purchase Order Number"/>
+                  <table:template>
+                    <Text id="txtPONumber" text="{Purchase Order Number}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colPalletNumber" width="150px">
+                  <Label id="lblPalletNumber" text="Pallet Number"/>
+                  <table:template>
+                    <Text id="txtPalletNumber" text="{Pallet Number}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colGrossWeight" width="120px">
+                  <Label id="lblGrossWeight" text="Gross Weight"/>
+                  <table:template>
+                    <Text id="txtGrossWeight" text="{Gross Weight}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colPOItem" width="150px">
+                  <Label id="lblPOItem" text="Purchase Order Item"/>
+                  <table:template>
+                    <Text id="txtPOItem" text="{Purchase Order Item}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colArisaPartNumber" width="180px">
+                  <Label id="lblArisaPartNumber" text="Arisa Part Number"/>
+                  <table:template>
+                    <Text id="txtArisaPartNumber" text="{Arisa Part Number}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colVendorPartNumber" width="180px">
+                  <Label id="lblVendorPartNumber" text="Vendor Part Number"/>
+                  <table:template>
+                    <Text id="txtVendorPartNumber" text="{Vendor Part Number}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colQuantity" width="100px">
+                  <Label id="lblQuantity" text="Quantity"/>
+                  <table:template>
+                    <Text id="txtQuantity" text="{Quantity}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colDeliveryDate" width="150px">
+                  <Label id="lblDeliveryDate" text="Delivery Date"/>
+                  <table:template>
+                    <Text id="txtDeliveryDate" text="{Delivery Date}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colDeliveryTime" width="120px">
+                  <Label id="lblDeliveryTime" text="Delivery Time"/>
+                  <table:template>
+                    <Text id="txtDeliveryTime" text="{Delivery Time}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colPlant" width="100px">
+                  <Label id="lblPlant" text="Plant"/>
+                  <table:template>
+                    <Text id="txtPlant" text="{Plant}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colBatchNumber" width="150px">
+                  <Label id="lblBatchNumber" text="Batch Number"/>
+                  <table:template>
+                    <Text id="txtBatchNumber" text="{Batch Number}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colFreeGoodsIndicator" width="180px">
+                  <Label id="lblFreeGoodsIndicator" text="Free Goods Indicator"/>
+                  <table:template>
+                    <Text id="txtFreeGoodsIndicator" text="{Free Goods Indicator}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colNoteOfFreeGoods" width="200px">
+                  <Label id="lblNoteOfFreeGoods" text="Note of Free Goods"/>
+                  <table:template>
+                    <Text id="txtNoteOfFreeGoods" text="{Note of Free Goods}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colPORefFreeGoods" width="180px">
+                  <Label id="lblPORefFreeGoods" text="PO Ref for Free Goods"/>
+                  <table:template>
+                    <Text id="txtPORefFreeGoods" text="{PO Ref for Free Goods}"/>
+                  </table:template>
+                </table:Column>
+                <table:Column id="colPOLineItemRefFreeGoods" width="200px">
+                  <Label id="lblPOLineItemRefFreeGoods" text="PO Line item Ref for Free Goods"/>
+                  <table:template>
+                    <Text id="txtPOLineItemRefFreeGoods" text="{PO Line item Ref for Free Goods}"/>
+                  </table:template>
+                </table:Column>
+              </table:columns>
+            </table:Table>
+        </content> 
+    </Page> 
+</mvc:View>

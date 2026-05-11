@@ -1,0 +1,160 @@
+{
+  "_version": "1.73.1",
+  "sap.app": {
+    "id": "uploadinbounddelivery.uploadinbounddelivery",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.18.6",
+      "toolsId": "78950687-2ab4-4929-beec-3ebaaec49c3b"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata4/sap/zui_tbinb_dlv_o4/srvd/sap/zui_tbinb_dlv_o4/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "InboudDeliverySemanticObject-manage": {
+          "semanticObject": "InboudDeliverySemanticObject",
+          "action": "manage",
+          "title": "{{InboudDeliverySemanticObject-manage.flpTitle}}",
+          "subTitle": "{{InboudDeliverySemanticObject-manage.flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.136.7",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ui.comp": {},
+        "sap.ui.table": {},
+        "sap.ui.unified": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "uploadinbounddelivery.uploadinbounddelivery.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ],
+      "js": [
+        {
+          "uri": "lib/xlsx.full.min.js"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "uploadinbounddelivery.uploadinbounddelivery.view",
+        "async": true,
+        "viewPath": "uploadinbounddelivery.uploadinbounddelivery.view"
+      },
+      "routes": [
+        {
+          "name": "RouteListPage",
+          "pattern": "",
+          "target": [
+            "TargetListPage"
+          ]
+        },
+        {
+          "name": "Routeinbound_delivery",
+          "pattern": ":?query:",
+          "target": [
+            "Targetinbound_delivery"
+          ]
+        },
+        {
+          "pattern": "custom",
+          "name": "CustomPage",
+          "target": "CustomPage"
+        }
+      ],
+      "targets": {
+        "Targetinbound_delivery": {
+          "id": "inbound_delivery",
+          "name": "inbound_delivery"
+        },
+        "TargetListPage": {
+          "id": "ListPage",
+          "name": "ListPage"
+        },
+        "CustomPage": {
+          "viewName": "CustomPage",
+          "viewLevel": 1
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "uploadinbounddelivery.uploadinbounddelivery.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}

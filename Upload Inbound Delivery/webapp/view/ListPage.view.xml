@@ -1,0 +1,422 @@
+<mvc:View
+  controllerName="uploadinbounddelivery.uploadinbounddelivery.controller.ListPage"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:table="sap.ui.table">
+  <Page id="listPage" title="">
+    <content>
+      <FlexBox id="_IDGenFlexBox"
+        justifyContent="End"
+        alignItems="End">
+        <Button id="_IDGenButton1"
+          text="Go to Upload Page"
+          press=".onNavToCustomPage"
+          type="Transparent"
+          class="sapUiBold sapUiMediumSize"
+        />
+      </FlexBox>
+      
+      <IconTabBar
+        id="idIconTabBar"
+        select=".onTabSelect"
+        selectedKey="newly"
+        class="sapUiResponsiveContentPadding">
+        <items>
+          <IconTabFilter
+            id="tabNewlyUploaded"
+            text="Newly Uploaded Data"
+            key="newly">
+            <VBox id="_IDGenVBox1">
+  <Toolbar id="_IDGenToolbar1">
+    <Button
+      id="btnClearData"
+      icon="sap-icon://delete"
+      text="Clear Data"
+      press=".onClearData"
+      type="Reject"/>
+    <ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+    <SearchField
+      id="searchNewly"
+      width="300px"
+      placeholder="Search in all fields..."
+      search=".onSearch"
+      liveChange=".onSearch"/>
+    <Button
+      id="btnExportNewly"
+      icon="sap-icon://excel-attachment"
+      text="Export to Excel"
+      press=".onExport"/>
+  </Toolbar>
+  <table:Table
+    id="odataTable"
+    rows="{/ZC_TBINB_DLV}"
+    visibleRowCount="15"
+    selectionMode="MultiToggle"
+    enableColumnReordering="true"
+    width="100%">
+                <table:columns>
+                  <table:Column id="colModel1" width="150px" sortProperty="Model" filterProperty="Model">
+                    <Label id="lblMode2" text="Model"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtMode3" text="{Model}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colModelDescription" width="200px" sortProperty="ModelDescription" filterProperty="ModelDescription">
+                    <Label id="lblModelDescription" text="Model Description"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtModelDescription" text="{ModelDescription}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colSoNumberLineItem" width="180px" sortProperty="SoNumberLineItem" filterProperty="SoNumberLineItem">
+                    <Label id="lblSoNumberLineItem" text="SO Number/ Line Item"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtSoNumberLineItem" text="{SoNumberLineItem}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colContainerNumber1" width="150px" sortProperty="ContainerNumber" filterProperty="ContainerNumber">
+                    <Label id="lblContainerNumber1" text="Container Number"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtContainerNumber1" text="{ContainerNumber}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colProformaInvoiceNumber" width="180px" sortProperty="ProformaInvoiceNumber" filterProperty="ProformaInvoiceNumber">
+                    <Label id="lblProformaInvoiceNumber" text="Proforma Invoice"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtProformaInvoiceNumber" text="{ProformaInvoiceNumber}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colBillOfLading" width="180px" sortProperty="BillOfLading" filterProperty="BillOfLading">
+                    <Label id="lblBillOfLading" text="Bill of Lading"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtBillOfLading" text="{BillOfPayment}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colCipl1" width="220px" sortProperty="CommercialInvoicePl" filterProperty="CommercialInvoicePl">
+                    <Label id="lblCipl1" text="Commercial Invoice/Packing List"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtCipl1" text="{CommercialInvoicePl}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colPurchaseOrderNumber" width="180px" sortProperty="PurchaseOrderNumber" filterProperty="PurchaseOrderNumber">
+                    <Label id="lblPurchaseOrderNumber" text="Purchase Order Number"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtPurchaseOrderNumber" text="{PurchaseOrderNumber}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colPalletNumber1" width="150px" sortProperty="PalletNumber" filterProperty="PalletNumber">
+                    <Label id="lblPalletNumber1" text="Pallet Number"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtPalletNumber1" text="{PalletNumber}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colGrossWeight1" width="150px" sortProperty="GrossWeight" filterProperty="GrossWeight">
+                    <Label id="lblGrossWeight1" text="Gross Weight"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtGrossWeight1" text="{GrossWeight}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colPurchaseOrderItem" width="180px" sortProperty="PurchaseOrderItem" filterProperty="PurchaseOrderItem">
+                    <Label id="lblPurchaseOrderItem" text="Purchase Order Item"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtPurchaseOrderItem" text="{PurchaseOrderItem}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colArisaPartNumber1" width="150px" sortProperty="Material" filterProperty="Material">
+                    <Label id="lblArisaPartNumber1" text="Arisa Part Number"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtArisaPartNumber1" text="{Material}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colVendorPartNumber1" width="150px" sortProperty="VendorPartNumber" filterProperty="VendorPartNumber">
+                    <Label id="lblVendorPartNumber1" text="Vendor Part Number"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtVendorPartNumber1" text="{VendorPartNumber}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colQuantity1" width="100px" sortProperty="ActualDeliveryQuantity" filterProperty="ActualDeliveryQuantity">
+                    <Label id="lblQuantity1" text="Quantity"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtQuantity1" text="{ActualDeliveryQuantity}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colDeliveryDate1" width="120px" sortProperty="DeliveryDate" filterProperty="DeliveryDate">
+                    <Label id="lblDeliveryDate1" text="Delivery Date"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtDeliveryDate1" text="{DeliveryDate}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colDeliveryTime1" width="120px" sortProperty="DeliveryTime" filterProperty="DeliveryTime">
+                    <Label id="lblDeliveryTime1" text="Delivery Time"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtDeliveryTime1" text="{DeliveryTime}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colPlant1" width="150px" sortProperty="Plant" filterProperty="Plant">
+                    <Label id="lblPlant1" text="Plant"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtPlant1" text="{Plant}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colBatchNumber1" width="150px" sortProperty="BatchNumber" filterProperty="BatchNumber">
+                    <Label id="lblBatchNumber1" text="Batch Number"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtBatchNumber1" text="{BatchNumber}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colFreeGoodsIndicator1" width="150px" sortProperty="FreeGoodsIndicator" filterProperty="FreeGoodsIndicator">
+                    <Label id="lblFreeGoodsIndicator1" text="Free Goods Indicator"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtFreeGoodsIndicator1" text="{FreeGoodsIndicator}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colNoteOfFreeGoods1" width="200px" sortProperty="NoteOfFreeGoods" filterProperty="NoteOfFreeGoods">
+                    <Label id="lblNoteOfFreeGoods1" text="Note of Free Goods"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtNoteOfFreeGoods1" text="{NoteOfFreeGoods}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colPoRefForFreeGoods" width="180px" sortProperty="PoRefForFreeGoods" filterProperty="PoRefForFreeGoods">
+                    <Label id="lblPoRefForFreeGoods" text="PO Ref for Free Goods"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtPoRefForFreeGoods" text="{PoRefForFreeGoods}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colPoLineItemRef" width="180px" sortProperty="PoLineItemRef" filterProperty="PoLineItemRef">
+                    <Label id="lblPoLineItemRef" text="PO Line item Ref for Free Goods"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtPoLineItemRef" text="{PoLineItemRef}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colResponse" width="150px" sortProperty="Response" filterProperty="Response">
+                    <Label id="lblResponse" text="Response"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtResponse" text="{Response}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colCreatedBy" width="150px" sortProperty="CreatedBy" filterProperty="CreatedBy">
+                    <Label id="lblCreatedBy" text="Created By"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtCreatedBy" text="{CreatedBy}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colChangedBy" width="150px" sortProperty="ChangedBy" filterProperty="ChangedBy">
+                    <Label id="lblChangedBy" text="Changed By"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtChangedBy" text="{ChangedBy}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colLocalLastChangedAt" width="150px" sortProperty="LocalLastChangedAt" filterProperty="LocalLastChangedAt">
+                    <Label id="lblLocalLastChangedAt" text="Local Last Changed At"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtLocalLastChangedAt" text="{LocalLastChangedAt}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colLastChangedAt" width="150px" sortProperty="LastChangedAt" filterProperty="LastChangedAt">
+                    <Label id="lblLastChangedAt" text="Last Changed At"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtLastChangedAt" text="{LastChangedAt}"/>
+                    </table:template>
+                  </table:Column>
+                </table:columns>
+              </table:Table>
+            </VBox>
+          </IconTabFilter>
+          
+          <IconTabFilter
+            id="tabHistory"
+            text="History of Uploaded Data"
+            key="history">
+            <VBox id="_IDGenVBox">
+              <Toolbar id="_IDGenToolbar">
+                <ToolbarSpacer id="_IDGenToolbarSpacer"/>
+                <SearchField
+                  id="searchHistory"
+                  width="300px"
+                  placeholder="Search in all fields..."
+                  search=".onSearch"
+                  liveChange=".onSearch"/>
+                <Button
+                  id="btnExportHistory"
+                  icon="sap-icon://excel-attachment"
+                  text="Export to Excel"
+                  press=".onExport"/>
+              </Toolbar>
+              <table:Table
+                id="historyTable"
+                rows="{/ZC_TBINB_DLV}"
+                visibleRowCount="15"
+                selectionMode="None"
+                enableColumnReordering="true"
+                width="100%">
+                <table:columns>
+                  <table:Column id="colModel2" width="150px" sortProperty="Model" filterProperty="Model">
+                    <Label id="lblMode4" text="Model"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtMode5" text="{Model}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colModelDescription2" width="200px" sortProperty="ModelDescription" filterProperty="ModelDescription">
+                    <Label id="lblModelDescription2" text="Model Description"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtModelDescription2" text="{ModelDescription}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colSoNumberLineItem2" width="180px" sortProperty="SoNumberLineItem" filterProperty="SoNumberLineItem">
+                    <Label id="lblSoNumberLineItem2" text="SO Number/ Line Item"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtSoNumberLineItem2" text="{SoNumberLineItem}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colContainerNumber2" width="150px" sortProperty="ContainerNumber" filterProperty="ContainerNumber">
+                    <Label id="lblContainerNumber2" text="Container Number"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtContainerNumber2" text="{ContainerNumber}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colProformaInvoiceNumber2" width="180px" sortProperty="ProformaInvoiceNumber" filterProperty="ProformaInvoiceNumber">
+                    <Label id="lblProformaInvoiceNumber2" text="Proforma Invoice"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtProformaInvoiceNumber2" text="{ProformaInvoiceNumber}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colBillOfLading2" width="180px" sortProperty="BillOfLading" filterProperty="BillOfLading">
+                    <Label id="lblBillOfLading2" text="Bill of Lading"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtBillOfLading2" text="{BillOfPayment}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colCipl2" width="220px" sortProperty="CommercialInvoicePl" filterProperty="CommercialInvoicePl">
+                    <Label id="lblCipl2" text="Commercial Invoice/Packing List"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtCipl2" text="{CommercialInvoicePl}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colPurchaseOrderNumber2" width="180px" sortProperty="PurchaseOrderNumber" filterProperty="PurchaseOrderNumber">
+                    <Label id="lblPurchaseOrderNumber2" text="Purchase Order Number"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtPurchaseOrderNumber2" text="{PurchaseOrderNumber}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colPalletNumber2" width="150px" sortProperty="PalletNumber" filterProperty="PalletNumber">
+                    <Label id="lblPalletNumber2" text="Pallet Number"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtPalletNumber2" text="{PalletNumber}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colGrossWeight2" width="150px" sortProperty="GrossWeight" filterProperty="GrossWeight">
+                    <Label id="lblGrossWeight2" text="Gross Weight"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtGrossWeight2" text="{GrossWeight}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colPurchaseOrderItem2" width="180px" sortProperty="PurchaseOrderItem" filterProperty="PurchaseOrderItem">
+                    <Label id="lblPurchaseOrderItem2" text="Purchase Order Item"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtPurchaseOrderItem2" text="{PurchaseOrderItem}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colArisaPartNumber2" width="150px" sortProperty="Material" filterProperty="Material">
+                    <Label id="lblArisaPartNumber2" text="Arisa Part Number"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtArisaPartNumber2" text="{Material}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colVendorPartNumber2" width="150px" sortProperty="VendorPartNumber" filterProperty="VendorPartNumber">
+                    <Label id="lblVendorPartNumber2" text="Vendor Part Number"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtVendorPartNumber2" text="{VendorPartNumber}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colQuantity2" width="100px" sortProperty="ActualDeliveryQuantity" filterProperty="ActualDeliveryQuantity">
+                    <Label id="lblQuantity2" text="Quantity"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtQuantity2" text="{ActualDeliveryQuantity}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colDeliveryDate2" width="120px" sortProperty="DeliveryDate" filterProperty="DeliveryDate">
+                    <Label id="lblDeliveryDate2" text="Delivery Date"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtDeliveryDate2" text="{DeliveryDate}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colDeliveryTime2" width="120px" sortProperty="DeliveryTime" filterProperty="DeliveryTime">
+                    <Label id="lblDeliveryTime2" text="Delivery Time"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtDeliveryTime2" text="{DeliveryTime}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colPlant2" width="150px" sortProperty="Plant" filterProperty="Plant">
+                    <Label id="lblPlant2" text="Plant"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtPlant2" text="{Plant}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colBatchNumber2" width="150px" sortProperty="BatchNumber" filterProperty="BatchNumber">
+                    <Label id="lblBatchNumber2" text="Batch Number"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtBatchNumber2" text="{BatchNumber}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colFreeGoodsIndicator2" width="150px" sortProperty="FreeGoodsIndicator" filterProperty="FreeGoodsIndicator">
+                    <Label id="lblFreeGoodsIndicator2" text="Free Goods Indicator"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtFreeGoodsIndicator2" text="{FreeGoodsIndicator}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colNoteOfFreeGoods2" width="200px" sortProperty="NoteOfFreeGoods" filterProperty="NoteOfFreeGoods">
+                    <Label id="lblNoteOfFreeGoods2" text="Note of Free Goods"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtNoteOfFreeGoods2" text="{NoteOfFreeGoods}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colPoRefForFreeGoods2" width="180px" sortProperty="PoRefForFreeGoods" filterProperty="PoRefForFreeGoods">
+                    <Label id="lblPoRefForFreeGoods2" text="PO Ref for Free Goods"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtPoRefForFreeGoods2" text="{PoRefForFreeGoods}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colPoLineItemRef2" width="180px" sortProperty="PoLineItemRef" filterProperty="PoLineItemRef">
+                    <Label id="lblPoLineItemRef2" text="PO Line item Ref for Free Goods"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtPoLineItemRef2" text="{PoLineItemRef}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colResponse2" width="150px" sortProperty="Response" filterProperty="Response">
+                    <Label id="lblResponse2" text="Response"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtResponse2" text="{Response}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colCreatedBy2" width="150px" sortProperty="CreatedBy" filterProperty="CreatedBy">
+                    <Label id="lblCreatedBy2" text="Created By"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtCreatedBy2" text="{CreatedBy}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colChangedBy2" width="150px" sortProperty="ChangedBy" filterProperty="ChangedBy">
+                    <Label id="lblChangedBy2" text="Changed By"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtChangedBy2" text="{ChangedBy}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colLocalLastChangedAt2" width="150px" sortProperty="LocalLastChangedAt" filterProperty="LocalLastChangedAt">
+                    <Label id="lblLocalLastChangedAt2" text="Local Last Changed At"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtLocalLastChangedAt2" text="{LocalLastChangedAt}"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column id="colLastChangedAt2" width="150px" sortProperty="LastChangedAt" filterProperty="LastChangedAt">
+                    <Label id="lblLastChangedAt2" text="Last Changed At"/>
+                    <table:template>
+                      <Text wrapping="false" id="txtLastChangedAt2" text="{LastChangedAt}"/>
+                    </table:template>
+                  </table:Column>
+                </table:columns>
+              </table:Table>
+            </VBox>
+          </IconTabFilter>
+        </items>
+      </IconTabBar>
+    </content>
+  </Page>
+</mvc:View>
